@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
@@ -46,7 +45,6 @@ feat_cols = [capital_gain, capital_loss, hours_per_week, age,education_num,
              workclass, education, marital_status, occupation, relationship,race,gender,native_country]
 #
 # CREATE THE MODEL USING LinearClassifier (Binary Classifier)
-# https://www.guru99.com/linear-classifier-tensorflow.html
 '''
 Classification problems represent roughly 80 percent of the machine learning task. 
 Classification aims at predicting the probability of each class given a set of inputs. 
@@ -96,9 +94,9 @@ feat_cols = [capital_gain, capital_loss, hours_per_week, age,education_num,
 #
 # CREATE THE MODEL
 print(f'Begin Create DNNClassifier model usng x=X_train, y=y_train:   {datetime.datetime.now()}')
-input_func = tf.estimator.inputs.pandas_input_fn(x=X_train, y=y_train, batch_size=128, num_epochs=100, shuffle=True)
+input_func = tf.estimator.inputs.pandas_input_fn(x=X_train, y=y_train, batch_size=128, num_epochs=500, shuffle=True)
 dnn_model = tf.estimator.DNNClassifier(feature_columns=feat_cols,hidden_units=[13,13,13, 13], n_classes=2)  # the label (predicted value is 2 levels)
-dnn_model.train(input_fn=input_func, steps=1000)
+dnn_model.train(input_fn=input_func, steps=10000)
 print(f'End Create DNNClassifier model using x=X_train, y=y_train:   {datetime.datetime.now()}')
 #
 # EVALUATE THE MODEL by re-using Train Data
